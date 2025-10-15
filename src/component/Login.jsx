@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice"; // Import the action to add user data
 import { useNavigate } from "react-router-dom"; 
 import { BASE_URL } from "../utils/constants";
+import Feed from "./Feed";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("");
@@ -24,7 +25,7 @@ const Login = () => {
       dispatch(addUser(res.data)); // Dispatch the action to add user data to Redux store
       // Handle successful login (e.g., redirect to profile page)
    
-   navigate("/");
+   navigate("/Feed");
     } catch (err) {
       console.error(err);
     }
