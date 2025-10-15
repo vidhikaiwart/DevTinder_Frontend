@@ -9,6 +9,7 @@ import Feed from "./Feed";
 const Login = () => {
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
+  const [error,setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate(); 
 
@@ -27,7 +28,8 @@ const Login = () => {
    
    navigate("/Feed");
     } catch (err) {
-      console.error(err);
+      setError(err?.response?.data || err.message);
+  
     }
   };
 
@@ -69,8 +71,9 @@ const Login = () => {
               />
             </label>
           </div>
-
+ 
           <div className="card-actions justify-center mt-4">
+           <p className="text-red-500">{error}</p>
             <button className="btn w-full bg-blue-900" onClick={handleLogin}>
               LOGIN
             </button>
