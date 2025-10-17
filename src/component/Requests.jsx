@@ -5,9 +5,10 @@ import { BASE_URL } from '../utils/constants';
 import { addRequest, removeRequest } from '../utils/requestSlice';
 
 const Requests = () => {
+
     const dispatch=useDispatch();
     const requests=useSelector((store)=>store.requests)
-     
+    
     const reviewsRequest=async(status,_id)=>{
         try{
           const res=await axios.post(BASE_URL+"/request/review/"+ status+"/"+_id,{},{
@@ -29,7 +30,7 @@ const Requests = () => {
             console.log(res.data.data)
             dispatch(addRequest(res.data.data))
         }catch(err){
-console.error("❌ Fetch request failed:", err.response?.data || err.message);
+        console.error("❌ Fetch request failed:", err.response?.data || err.message);
         }
     }
 
@@ -40,6 +41,7 @@ console.error("❌ Fetch request failed:", err.response?.data || err.message);
 
   if (!requests) return;
   if (requests.length === 0) return <h1 className='flex justify-center my-10'>No Connection Found</h1>;
+ 
   return (
     <div className=" text-center my-10">
       <h1 className="text-bold text-white text-3xl">Connections Requests</h1>

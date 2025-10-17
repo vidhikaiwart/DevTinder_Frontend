@@ -1,10 +1,12 @@
+
 import axios from 'axios'
 import React, {  useEffect } from 'react'
 import { addFeed } from '../utils/feedSlice'
 import { BASE_URL } from '../utils/constants';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import UserCard from './UserCard.jsx'
+import UserCard from './UserCard'
+
 
 const Feed = () => {
 
@@ -29,10 +31,14 @@ useEffect(()=>{
   getFeed();
 },[]);
 
-  return (
+
+if(!feed) return ;
+if(feed.length===0) return <h1 className='text-2xl text-center my-10'>No Users Found</h1>;  
+  
+return (
     feed &&(
     <div className='flex justify-center my-10'>
-    <UserCard  user={feed[1]}/>
+    <UserCard user={feed[0]}/>
     </div>
     )
   )
