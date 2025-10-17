@@ -17,6 +17,7 @@ const EditProfile = ({user}) => {
     const [gender,setGender] = useState(user.gender || "");
     const [about,setAbout] = useState(user.about);
     const [error,setError] = useState(null);
+    const [showToast,setShowToast] = useState(false);
     const dispatch = useDispatch();
 
     const saveProfile= async ()=>{
@@ -26,12 +27,19 @@ const EditProfile = ({user}) => {
             {withCredentials:true},
           )
           dispatch(addUser(res?.data?.data));  
+          setShowToast(true);
+
+          setTimeout(()=>{
+            setShowToast(false);
+            clearInterval(i);
+          },3000);
         }catch(err){
            setError(err.responce.data  || "Error while saving profile" );
         }
     };
 
   return (
+    <>
     <div className='flex gap-x-5 justify-center'>
     <div className="flex justify-center items-center py-20 ">
       <div className="card w-96 bg-white shadow-2xl rounded-2xl backdrop-blur-md border border-white/30">
@@ -144,6 +152,17 @@ const EditProfile = ({user}) => {
   <UserCard user ={{ firstName,lastName,photoUrl,age,gender,about }} />        
     </div>
     </div>
+
+    {showToast && (
+      <div className="toast toast-top toast-center">
+        <div className="alert alert-success">
+          <span>  Profile save successfully.</span>
+        </div>
+      </div>
+    )}
+
+    </>
+
   )
 }
 
